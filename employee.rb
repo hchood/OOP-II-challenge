@@ -53,8 +53,12 @@ class CommissionSalesPerson < Employee
     @sales += amount
   end
 
-  def gross_monthly_salary
-    super + (@sales * @commission)
+  def commission
+    @sales * @commission
+  end
+
+  def net_pay
+    super + self.commission * (1 - TAX_RATE)
   end
 end
 
@@ -76,12 +80,16 @@ class QuotaSalesPerson < Employee
     @sales += amount
   end
 
-  def gross_monthly_salary
+  def commission
     if self.hit_quota?
-      super + @quota_bonus
+      @quota_bonus
     else
-      super
+      0
     end
+  end
+
+  def net_pay
+    super + self.commission * (1 - TAX_RATE)
   end
 end
 
@@ -93,11 +101,15 @@ class Owner < Employee
     @company = company
   end
 
-  def gross_monthly_salary
+  def commission
     if @company.hit_quota?
-      super + 1000
+      1000
     else
-      super
+      0
     end
+  end
+
+  def net_pay
+    super + self.commission * (1 - TAX_RATE)
   end
 end
