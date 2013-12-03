@@ -46,6 +46,10 @@ class CommissionSalesPerson < Employee
     @sales = 0
   end
 
+  def add_sale(amount)
+    @sales += amount
+  end
+
   def gross_monthly_salary
     super + (@sales * @commission)
   end
@@ -61,6 +65,10 @@ class QuotaSalesPerson < Employee
 
   def hit_quota?
     @sales >= @quota
+  end
+
+  def add_sale(amount)
+    @sales += amount
   end
 
   def gross_monthly_salary
