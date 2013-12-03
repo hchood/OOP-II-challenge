@@ -38,3 +38,51 @@ class Employee
     self.gross_monthly_salary * (1 - TAX_RATE)
   end
 end
+
+class CommissionSalesPerson < Employee
+  def initialize(name, base_salary, commission_percentage)
+    super(name, base_salary)
+    @commission = commission_percentage.to_f
+    @sales = 0
+  end
+
+  def gross_monthly_salary
+    super + (@sales * @commission)
+  end
+end
+
+class QuotaSalesPerson < Employee
+  def initialize(name, base_salary, quota_bonus, quota)
+    super(name, base_salary)
+    @quota_bonus = quota_bonus
+    @quota = quota
+    @sales = 0
+  end
+
+  def hit_quota?
+    @sales >= @quota
+  end
+
+  def gross_monthly_salary
+    if self.hit_quota?
+      super + @quota_bonus
+    else
+      super
+    end
+  end
+end
+
+class Owner < Employee
+  def initialize(name, base_salary, company)
+    super(name, base_salary)
+    @company = company
+  end
+
+  def gross_monthly_salary
+    if @company.hit_quota?
+      super + 1000
+    else
+      super
+    end
+  end
+end

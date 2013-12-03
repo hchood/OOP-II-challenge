@@ -27,14 +27,6 @@ require_relative 'commission_sales_person'
 require_relative 'quota_sales_person'
 require_relative 'owner'
 
-
-
-
-
-
-
-    # ************************************************************
-
 class Sale
   def self.sales
     sales = []

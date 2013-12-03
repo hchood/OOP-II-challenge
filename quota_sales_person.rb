@@ -17,5 +17,4 @@ class QuotaSalesPerson < Employee
       super
     end
   end
-  end
 end
