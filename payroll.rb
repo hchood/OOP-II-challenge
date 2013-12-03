@@ -1,13 +1,5 @@
-# employees = [
-#   {name: "Johnny Smith", base_salary: 80000},
-#   {name: "Jimmy McMahon", base_salary: 85000},
-#   {name: "Bob Lob", base_salary: 50000, commission: 0.005},
-#   {name: "Ricky Bobby", base_salary: 40000, commission: 0.015},
-#   {name: "Edna Krabappel", base_salary: 87000},
-#   {name: "Willie Groundskeeper", base_salary: 75000, quota_bonus: 5000 if 60k gross monthly sales},
-#   {name: "Clancy Wiggum", base_salary: 80000, quota_bonus: 10000 if 80k gross monthly sales},
-#   {name: "Charles Burns", base_salary: 500000}
-# ]
+require 'csv'
+require 'pry'
 
 # sales_data = [
 # last_name, gross_sale_value
@@ -31,24 +23,50 @@
 # ********************************************************************************************
 
 class Employee
-  attr_reader :name, :base_salary
+  attr_reader :name, :last_name, :base_salary
 
-  @@employees = []
+  TAX_RATE = 0.30
 
   def initialize(name, base_salary)
     @name = name
+    @last_name = name.split(/ /).last
     @base_salary = base_salary.to_i
-    @@employees << self
+  end
+
+  def self.employees
+    @@employees
+  end
+
+  def self.parse_employees(filename)
+    @@employees = []
+    CSV.foreach(filename, headers: true) do |row|
+      if row["type"] == "1"
+        @@employees << Employee.new(row["name"], row["base_salary"])
+      elsif row["type"] == "2"
+        @@employees << CommissionSalesPerson.new(row["name"], row["base_salary"], row["commission"])
+      elsif row["type"] == "3"
+        @@employees << QuotaSalesPerson.new(row["name"], row["base_salary"], row["quota_bonus"], row["quota"])
+      elsif row["type"] == "4"
+        @@employees << Owner.new(row["name"], row["base_salary"], Company.new(row["company_quota"]))
+      else
+        puts "Error"
+      end
+    end
+
   end
 
   def gross_monthly_salary
     @base_salary / 12
   end
+
+  def net_pay
+    self.gross_monthly_salary * (1 - TAX_RATE)
+  end
 end
 
 class CommissionSalesPerson < Employee
-  def initialize(commission_percentage)
-    super +
+  def initialize(name, base_salary, commission_percentage)
+    super(name, base_salary)
     @commission = commission_percentage.to_f
     @sales = 0
   end
@@ -59,8 +77,8 @@ class CommissionSalesPerson < Employee
 end
 
 class QuotaSalesPerson < Employee
-  def initialize(quota_bonus, monthly_quota)
-    super +
+  def initialize(name, base_salary, quota_bonus, monthly_quota)
+    super(name, base_salary)
     @quota_bonus = quota_bonus
     @monthly_quota = monthly_quota
     @sales = 0
@@ -76,8 +94,8 @@ class QuotaSalesPerson < Employee
 end
 
 class Owner < Employee
-  def initialize(company)
-    super +
+  def initialize(name, base_salary, company)
+    super(name, base_salary)
     @company = company
   end
 
@@ -91,16 +109,6 @@ class Owner < Employee
 end
 
     # ************************************************************
-
-class PayCalculator
-  TAX_RATE = 0.30
-
-  def initialize(employees, company)
-    @employees = employees
-    @company = company
-  end
-
-end
 
 class Sale
   def self.sales
@@ -138,12 +146,16 @@ end
 
 # So that the system is easy to update, we recommend you create a CSV of each employee so it is easy to add and remove employees from the system.
 
-company = Company.new(250000)
+# company = Company.new(250000)
 
-employees.each do |employee|
-  puts "***#{employee.name}***"
-  puts "Gross Salary: $#{gross_salary}"
-  puts "Net Pay: $#{net_pay}"
-  puts "***\n\n"
-end
+# employees.each do |employee|
+#   puts "***#{employee.name}***"
+#   puts "Gross Salary: $#{gross_salary}"
+#   puts "Net Pay: $#{net_pay}"
+#   puts "***\n\n"
+# end
+
+Employee.parse_employees('employees.csv')
+
+binding.pry
 
