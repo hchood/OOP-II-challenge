@@ -35,16 +35,16 @@ end
 
 # So that the system is easy to update, we recommend you create a CSV of each employee so it is easy to add and remove employees from the system.
 
-# company = Company.new(250000)
 
 Employee.parse_employees('employees.csv')
 Sale.parse_sales('sales.csv')
 
-binding.pry
+# binding.pry
+employees = Employee.employees
 
-# employees.each do |employee|
-#   puts "***#{employee.name}***"
-#   puts "Gross Salary: $#{gross_salary}"
-#   puts "Net Pay: $#{net_pay}"
-#   puts "***\n\n"
-# end
+employees.each do |employee|
+  puts "***#{employee.name}***"
+  puts "Gross Salary: $#{sprintf('%.2f', employee.gross_monthly_salary)}"
+  puts "Net Pay: $#{sprintf('%.2f', employee.net_pay)}"
+  puts "***\n\n"
+end

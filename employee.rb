@@ -58,8 +58,8 @@ end
 class QuotaSalesPerson < Employee
   def initialize(name, base_salary, quota_bonus, quota)
     super(name, base_salary)
-    @quota_bonus = quota_bonus
-    @quota = quota
+    @quota_bonus = quota_bonus.to_i
+    @quota = quota.to_i
     @sales = 0
   end
 
