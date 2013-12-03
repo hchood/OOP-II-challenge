@@ -90,7 +90,7 @@ class Owner < Employee
   end
 end
 
-# ********************************************************************************************
+    # ************************************************************
 
 class PayCalculator
   TAX_RATE = 0.30
@@ -103,7 +103,12 @@ class PayCalculator
 end
 
 class Sale
-
+  def self.sales
+    sales = []
+    CSV.foreach('sales.csv', headers: true) do |row|
+      sales << row.to_hash
+    end
+  end
 end
 
 class Company
