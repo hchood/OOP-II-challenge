@@ -81,6 +81,8 @@ class QuotaSalesPerson < Employee
 end
 
 class Owner < Employee
+  attr_reader :company
+
   def initialize(name, base_salary, company)
     super(name, base_salary)
     @company = company

@@ -13,15 +13,15 @@ class Company
 
   def initialize(monthly_quota)
     @monthly_quota = monthly_quota.to_i
+    @sales = 0
+  end
+
+  def import_sales
     @sales = Sale.gross_sales
   end
 
   def hit_quota?
     @sales >= @monthly_quota
-  end
-
-  def add_sale(amount)
-    @sales += amount
   end
 end
 
@@ -39,7 +39,6 @@ end
 
 Employee.parse_employees('employees.csv')
 Sale.parse_sales('sales.csv')
-puts Sale.gross_sales
 
 binding.pry
 

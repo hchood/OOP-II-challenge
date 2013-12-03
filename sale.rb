@@ -25,5 +25,7 @@ class Sale
       sales_person = Employee.employees.select { |employee| employee.last_name == sale.last_name }.first
       sales_person.add_sale(sale.amount)
     end
+    owners = Employee.employees.select { |employee| employee.is_a?(Owner) }
+    owners.each { |owner| owner.company.import_sales}
   end
 end
