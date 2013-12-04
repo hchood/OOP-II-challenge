@@ -1,0 +1,47 @@
+********************************************************************************************
+                                  USER STORIES
+********************************************************************************************
+
+As the payroll coordinator
+I want to calculate each employee's gross monthly pay
+So I can know how much I need to pay out in total (to employee & IRS)
+
+Acceptance criteria:
+* Gross monthly pay includes base salary and any commission or bonus earned by that employee.
+* Gross salary is calculated pre-tax.
+
+As the payroll coordinator
+I want to calculate each sales person's commission or bonus
+So I can include that in their gross monthly pay
+
+Acceptance criteria:
+* Only commission-based sales people receive a commission
+* Only quota-based sales people (or the owner) receive a bonus.
+* For commission-based sales people, commission equals their commission percentage times total sales.
+* For quota-based sales people, they receive their specified bonus if they hit their specified quota.  Otherwise, they receive no bonus.
+
+As the payroll coordinator
+I want to calculate the owner's bonus
+So I can include that in their gross monthly pay
+
+Acceptance criteria:
+* If the company's monthly sales are greater than 250,000, the owner earns a $1000 bonus.
+* Otherwise, the owner receives no bonus.
+
+As the payroll coordinator
+I want to calculate each employee's net monthly pay
+So I know how much to pay out in their paycheck
+
+Acceptance criteria:
+* For all employees, net monthly pay includes post-tax monthly base salary.
+* For commission sales people, net monthly pay includes the post-tax commission.
+* For quota-based sales people, net monthly pay includes their post-tax bonus.
+* For the owner, net monthly pay includes his post-tax bonus.
+
+As the payroll coordinator
+I want to output each employee's payroll information
+So that I can easily report on payroll
+
+Acceptance criteria:
+* Each employee's name, gross salary, and net pay is output to the screen.
+* For employees that receive a bonus or commission, that is also output.

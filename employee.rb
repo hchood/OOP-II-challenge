@@ -80,7 +80,7 @@ class QuotaSalesPerson < Employee
     @sales += amount
   end
 
-  def commission
+  def bonus
     if self.hit_quota?
       @quota_bonus
     else
@@ -89,7 +89,7 @@ class QuotaSalesPerson < Employee
   end
 
   def net_pay
-    super + self.commission * (1 - TAX_RATE)
+    super + self.bonus * (1 - TAX_RATE)
   end
 end
 
@@ -101,7 +101,7 @@ class Owner < Employee
     @company = company
   end
 
-  def commission
+  def bonus
     if @company.hit_quota?
       1000
     else
@@ -110,6 +110,6 @@ class Owner < Employee
   end
 
   def net_pay
-    super + self.commission * (1 - TAX_RATE)
+    super + self.bonus * (1 - TAX_RATE)
   end
 end
