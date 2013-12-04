@@ -1,6 +1,12 @@
 require 'csv'
 require 'pry'
 
+# NOTE:  My program matches the criteria in Apollo before Johnny updated them, because those
+# criteria match the Apollo sample output and make more sense.  Therefore, I have a single
+# gross_monthly_salary method in my Employee superclass (which includes only base salary)
+# and separate net_pay methods for each employee subclass that add in post-tax commissions or
+# bonuses.
+
 # ********************************************************************************************
 #                                   CLASSES
 # ********************************************************************************************

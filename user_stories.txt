@@ -7,7 +7,7 @@ I want to calculate each employee's gross monthly pay
 So I can know how much I need to pay out in total (to employee & IRS)
 
 Acceptance criteria:
-* Gross monthly pay includes base salary and any commission or bonus earned by that employee.
+* Gross monthly pay includes base salary BUT NOT any commission or bonus earned by that employee.
 * Gross salary is calculated pre-tax.
 
 As the payroll coordinator
